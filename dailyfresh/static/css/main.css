@@ -640,3 +640,10 @@ html,body{height:100%}
 .stress{
 	color:#ff8800;
 }
+
+.tijiao{
+	height: 40px;
+	width:100px;
+	background-color: #42ad46;
+	color: #fff;
+}

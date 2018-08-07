@@ -2,23 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-商品列表</title>
+	<title>天天生鲜-商品详情</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
-    <script>
-    {% if  request.session.user_name|default:'' != '' %}
-        $(function () {
-            f();
-        });
 
-        function f() {
-            $.get('/cart/add1_1/',function (data) {
-                $('.goods_count').text(data.count);
-            });
-        }
-    {% endif %}
-    </script>
+    {% block head %}{% endblock head %}
+
 </head>
 <body>
 	<div class="header_con">
@@ -29,7 +18,7 @@
 				</div>
 				<div class="login_btn fl">
 					{% if  request.session.user_name|default:'' != '' %}
-                    欢迎您 :;<em>{{request.session.user_name}}</em>
+                    欢迎您 :<em>{{request.session.user_name}}</em>
                         <span>|</span>
 					<a href="/user/logout/">退出</a>
                     {% else %}
@@ -52,60 +41,17 @@
 
     <div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="search_con fl">
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</div>
+		<div class="search_con fr">
 			<form method='get' action="/search/" target="_blank">
 			<input type="text" class="input_text fl" name="q" placeholder="搜索商品">
 			<input type="submit" class="input_btn fr" name="" value="搜索">
             </form>
 		</div>
-		<div class="guest_cart fr">
-			<a href="/cart/" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl"></div>
-		</div>
 	</div>
 
-	<div class="navbar_con">
-		<div class="navbar clearfix">
-			<div class="subnav_con fl">
-				<h1>全部商品分类</h1>
-				<span></span>
-				<ul class="subnav">
-					<li><a href="/list1_1_1/" class="fruit">新鲜水果</a></li>
-					<li><a href="/list2_1_1/" class="seafood">海鲜水产</a></li>
-					<li><a href="/list3_1_1/" class="meet">猪牛羊肉</a></li>
-					<li><a href="/list4_1_1/" class="egg">禽类蛋品</a></li>
-					<li><a href="/list5_1_1/" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="/list6_1_1/" class="ice">速冻食品</a></li>
-				</ul>
-			</div>
-			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
-				<li class="interval">|</li>
-				<li><a href="">手机生鲜</a></li>
-				<li class="interval">|</li>
-				<li><a href="">抽奖</a></li>
-			</ul>
-		</div>
-	</div>
+{% block content %}{% endblock content %}
 
-	<div class="breadcrumb">
-		<a href="#">当前分类</a>
-		<span>></span>
-		<a href="#">排行</a>
-	</div>
-
-	<div class="main_wrap clearfix">
-		<div class="l_wrap fl clearfix">
-			<div class="new_goods">
-				<h3>新品推荐</h3>
-				<ul>
-					{% block new %}{% endblock new %}
-				</ul>
-			</div>
-		</div>
-
-{% block detail %}{% endblock detail %}
-    </div>
 	<div class="footer">
 		<div class="foot_link">
 			<a href="#">关于我们</a>
@@ -120,6 +66,28 @@
 		<p>电话：029-****888    陕ICP备*******8号</p>
 	</div>
 
+	<div class="popup_con">
+		<div class="popup">
+			<p>订单提交成功！</p>
+		</div>
 
+		<div class="mask"></div>
+	</div>
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$('#order_btn').click(function() {
+			localStorage.setItem('order_finish',2);
+
+			$('.popup_con').fadeIn('fast', function() {
+
+				setTimeout(function(){
+					$('.popup_con').fadeOut('fast',function(){
+
+					});
+				},3000)
+
+			});
+		});
+	</script>
 </body>
 </html>

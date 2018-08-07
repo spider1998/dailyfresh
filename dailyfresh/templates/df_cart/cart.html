@@ -19,13 +19,15 @@
     function total() {
         total1=0;
         total_count=0;
-        $('.col07').each(function () {
-            count=$(this).prev().find('input').val();
-            price=$(this).prev().prev().text();
+        $(':checked:not(#check_all)').each(function () {
+
+            count=$(this).parent().siblings('.col06').find('input').val()
+            price=$(this).parent().siblings('.col05').text();
             total0=parseFloat(count)*parseFloat(price);
-            $(this).text(total0.toFixed(2));
+            $('.col07').text(total0.toFixed(2));
             total1+=total0;
             total_count++;
+
         });
         //显示总计
         $('#total').text(total1.toFixed(2));
@@ -89,7 +91,8 @@
 {% endblock head %}
 
 {% block content %}
-<form action="#" method="get">
+<form action="/order/" method="get">
+    {% csrf_token %}
 	<div class="total_count">全部商品<em class="total_count1">0</em>件</div>
 	<ul class="cart_list_th clearfix">
 		<li class="col01">商品名称</li>
@@ -101,10 +104,10 @@
 	</ul>
 {% for cart in carts %}
 	<ul class="cart_list_td clearfix" id="{{ cart.id }}">
-		<li class="col01"><input type="checkbox" name="cart_id" checked="checked"></li>
+		<li class="col01"><input type="checkbox" name="cart_id" value="{{ cart.id }}" checked="checked" ></li>
 		<li class="col02"><img src="/static/{{ cart.goods.gpic }}"></li>
 		<li class="col03">{{ cart.goods.gtitle }}</li>
-		<li class="col04">{{cart.goods.gunit}}</li>
+		<li class="col04">{{ cart.goods.gunit }}</li>
 		<li class="col05">{{ cart.goods.gprice }}元</li>
 		<li class="col06">
 			<div class="num_add">
