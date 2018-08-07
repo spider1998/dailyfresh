@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%b$crv0%&($hrt^#gpoqqelp%@*#_&)=3!43^_hfccjb(5ky&m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -114,6 +114,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+STATIC_ROOT='/var/www/dailyfresh/static/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 #MEDIA_ROOT='/var/www/dailyfresh/static'
@@ -135,5 +136,7 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE=18
+
+
 
 
